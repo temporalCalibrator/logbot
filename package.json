@@ -1,0 +1,23 @@
+{
+  "name": "LogBot",
+  "version": "0.1.0",
+  "description": "a tiny irc logging bot in node.js using Parse. works great with heroku",
+  "main": "log.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://brocorp.git.beanstalkapp.com/brajbot.git"
+  },
+  "keywords": [
+    "irc",
+    "bot"
+  ],
+  "author": "temporalCalibrator",
+  "license": "MIT",
+  "dependencies": {
+    "airbrake": "^0.3.8",
+    "kaiseki": "^0.5.4"
+  }
+}
