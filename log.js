@@ -9,7 +9,7 @@ var airbrake = require('airbrake').createClient(process.env.AIRBRAKE_KEY, "produ
 airbrake.handleExceptions();
 
 var config = {
-	channels: ["#brajstop"],
+	channels: process.env.IRC_CHANNELS.split(","),		// environment variable should be of the form #chan1,#chan2
 	server: process.env.IRC_SERVER,
 	botName: process.env.IRC_BOTNAME,
 	username: process.env.IRC_USERNAME,
