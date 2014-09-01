@@ -36,6 +36,7 @@ var bot = new irc.Client(config.server, config.botName, {
 	userName: config.username,
 	nick: config.botName,
 	password: config.password,
+	realName: 'i don\'t talk. i just log. need some logs? contact temporalCalibrator.',
 	autoRejoin: true
 });
 
