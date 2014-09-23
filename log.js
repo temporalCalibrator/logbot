@@ -9,7 +9,7 @@ var airbrake = require('airbrake').createClient(process.env.AIRBRAKE_KEY, "produ
 airbrake.handleExceptions();
 
 var config = {
-	channels: process.env.IRC_CHANNELS.split(","),		// environment variable should be of the form #chan1,#chan2
+	channels: process.env.IRC_CHANNELS.split(","), // environment variable should be of the form #chan1,#chan2
 	server: process.env.IRC_SERVER,
 	botName: process.env.IRC_BOTNAME,
 	username: process.env.IRC_USERNAME,
@@ -18,6 +18,12 @@ var config = {
 
 // Get the irc lib
 var irc = require("irc");
+
+// get irc colors
+require('irc-colors').global()
+
+// Get the UUID lib
+var uuid = require('node-uuid');
 
 // set up parse
 var Kaiseki = require('kaiseki');
@@ -83,6 +89,65 @@ bot.addListener("join", function(channel, who) {
 			if (err) {
 				airbrake.notify(res);
 			};
+		});
+		// this one is insanely messed up, but eh
+		app.getUsers(function(err, res, body1, success) {
+			// got all users
+			var allusers = body1;
+			if (allusers.indexOf(who) != -1) {
+				// query with parameters
+				var params = {
+					where: {
+						username: who
+					}
+				};
+				app.getUsers(params, function(err, res, body2, success) {
+					app.loginUser(who, body2[1].uuidpw, function(err, res, body3, success) {
+						// user logged in
+					});
+				});
+			} else {
+				var userInfo = {
+					// required
+					username: who,
+					password: uuid.v1()
+				};
+
+				app.createUser(userInfo, function(err, res, body4, success) {
+					// created user
+					app.loginUser(who, userInfo.password, function(err, res, body5, success) {
+						// user logged in
+					});
+				});
+			}
+		});
+	}
+});
+
+// log user parts
+bot.addListener("part", function(channel, who, reason, message) {
+	// don't log when the bot joins, as that would be redundant with recording AppOpened
+	if (who != config.botname) {
+		// create a message analytics event
+		app.sendAnalyticsEvent('UserPart', {
+			'nick': who,
+			'channel': channel,
+			'reason': reason
+		}, function(err, res, body, success) {
+			if (err) {
+				airbrake.notify(res);
+			};
+		});
+	}
+});
+
+// log count
+bot.addListener("message", function(nick, to, text, message) {
+	if (text == "{logcount}") {
+		// count all objects (no parameters)
+		app.countObjects('Messages', function(err, res, body, success) {
+			var logcount = body.count;
+			bot.say(to, ("There are " + logcount + " logs in my database.").irc.green());
 		});
 	}
 });
