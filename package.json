@@ -20,6 +20,7 @@
     "airbrake": "^0.3.8",
     "irc": "^0.3.7",
     "kaiseki": "^0.5.4",
-	"node-uuid": "^1.4.1"
+	"node-uuid": "^1.4.1",
+	"irc-colors": "^1.1.0"
   }
 }
