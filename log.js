@@ -119,7 +119,7 @@ bot.addListener("join", function(channel, who) {
 			};
 		});
 		// this one is insanely messed up, but eh
-		app.getUsers(function(err, res, body1, success) {
+		/*app.getUsers(function(err, res, body1, success) {
 			// got all users
 			var allusers = body1;
 			if (allusers.indexOf(who) != -1) {
@@ -148,7 +148,7 @@ bot.addListener("join", function(channel, who) {
 					});
 				});
 			}
-		});
+		});*
 	}
 });
 
