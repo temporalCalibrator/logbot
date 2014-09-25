@@ -49,7 +49,14 @@ var bot = new irc.Client(config.server, config.botName, {
 // record an AppOpened event
 app.sendAnalyticsEvent('AppOpened', function(err, res, body, success) {
 	if (err) {
-		airbrake.notify(response);
+  	  try
+  	    {
+  	    airbrake.notify(response);
+  	    }
+  	  catch(err)
+  	    {
+  	    console.log(err)
+  	    }
 	};
 });
 
@@ -62,7 +69,14 @@ bot.addListener("message", function(nick, to, text, message) {
 		channel: to
 	}, function(err, res, body, success) {
 		if (err) {
-			airbrake.notify(res);
+	  	  try
+	  	    {
+	  	    airbrake.notify(res);
+	  	    }
+	  	  catch(err)
+	  	    {
+	  	    console.log(err)
+	  	    }
 		};
 	});
 	// create a message analytics event
@@ -72,7 +86,14 @@ bot.addListener("message", function(nick, to, text, message) {
 		'channel': to
 	}, function(err, res, body, success) {
 		if (err) {
-			airbrake.notify(res);
+  	  	  try
+  	  	    {
+  	  	    airbrake.notify(res);
+  	  	    }
+  	  	  catch(err)
+  	  	    {
+  	  	    console.log(err)
+  	  	    }
 		};
 	});
 });
@@ -87,7 +108,14 @@ bot.addListener("join", function(channel, who) {
 			'channel': channel,
 		}, function(err, res, body, success) {
 			if (err) {
-				airbrake.notify(res);
+	  	  	  try
+	  	  	    {
+	  	  	    airbrake.notify(res);
+	  	  	    }
+	  	  	  catch(err)
+	  	  	    {
+	  	  	    console.log(err)
+	  	  	    }
 			};
 		});
 		// this one is insanely messed up, but eh
@@ -135,7 +163,14 @@ bot.addListener("part", function(channel, who, reason, message) {
 			'reason': reason
 		}, function(err, res, body, success) {
 			if (err) {
-				airbrake.notify(res);
+	  	  	  try
+	  	  	    {
+	  	  	    airbrake.notify(res);
+	  	  	    }
+	  	  	  catch(err)
+	  	  	    {
+	  	  	    console.log(err)
+	  	  	    }
 			};
 		});
 	}
