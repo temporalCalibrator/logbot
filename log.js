@@ -148,7 +148,7 @@ bot.addListener("join", function(channel, who) {
 					});
 				});
 			}
-		});*
+		});*/
 	}
 });
 
