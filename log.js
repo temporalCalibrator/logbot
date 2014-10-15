@@ -3,10 +3,10 @@
 // Parse REST api docs at https://www.parse.com/docs/rest
 
 // get airbrake monitoring
-var airbrake = require('airbrake').createClient(process.env.AIRBRAKE_KEY, "production");
+//var airbrake = require('airbrake').createClient(process.env.AIRBRAKE_KEY, "production");
 
 // configure airbrake monitoring
-airbrake.handleExceptions();
+//airbrake.handleExceptions();
 
 var config = {
 	channels: process.env.IRC_CHANNELS.split(","), // environment variable should be of the form #chan1,#chan2
